@@ -11,7 +11,7 @@ server.use('/api/posts', postsRouter);
 
 // endpoints
 server.get('/', (req, res) => {
-  res.status(201).json({ message: 'server do be running fam' });
+  res.status(200).json({ message: 'server do be running fam' });
 });
 
 module.exports = server;
