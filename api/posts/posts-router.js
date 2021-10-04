@@ -4,13 +4,23 @@ const Posts = require('./posts-model');
 const router = express.Router();
 
 // [GET]
-router.get('/', (req, res) => {
-  Posts.find()
-    .then((posts) => res.status(201).json(posts))
+router.get('/:id/comments', (req, res) => {
+  const { id } = req.params;
+
+  Posts.findCommentById(id)
+    .then((comments) => {
+      if (!comments) {
+        res
+          .status(404)
+          .json({ message: 'The comments information could not be retrieved' });
+      }
+
+      res.status(201).json(comments);
+    })
     .catch((err) => {
       res
         .status(500)
-        .json({ message: 'The posts information could not be retrieved' });
+        .json({ message: 'The comments information could not be retrieved' });
     });
 });
 
@@ -35,6 +45,16 @@ router.get('/:id', (req, res) => {
       res
         .status(500)
         .json({ message: 'The post information could not be retrieved' });
+    });
+});
+
+router.get('/', (req, res) => {
+  Posts.find()
+    .then((posts) => res.status(201).json(posts))
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ message: 'The posts information could not be retrieved' });
     });
 });
 
