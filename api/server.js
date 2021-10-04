@@ -3,7 +3,7 @@ const express = require('express');
 
 // initialization
 const server = express();
-const postsRouter = require('./posts-router');
+const postsRouter = require('./posts/posts-router');
 
 // middleware
 server.use(express.json());
